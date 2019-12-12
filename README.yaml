@@ -1,0 +1,117 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-aws-lambda
+
+# Tags of this project
+tags:
+  - aws
+  - aws-lambda
+  - terraform
+  - terraform-modules
+
+# Categories of this project
+categories:
+  - terraform-modules/supported
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: enter-at/terraform-aws-lambda
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://github.com/enter-at/terraform-aws-lambda/workflows/Lint/badge.svg"
+    url: "https://github.com/enter-at/terraform-aws-lambda/actions"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/enter-at/terraform-aws-lambda.svg"
+    url: "https://github.com/enter-at/terraform-aws-lambda/releases/latest"
+  - name: "Semantic Release"
+    image: "https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg"
+    url: "https://github.com/semantic-release/semantic-release"
+
+related:
+  - name: "terraform-newrelic-alert-lambda"
+    description: "Terraform Module to define New Relic alerts for AWS Lambda functions."
+    url: "https://github.com/enter-at/terraform-newrelic-alert-lambda"
+
+# Short description of this project
+description: |-
+  Terraform module designed to facilitate the creation of AWS Lambda functions.
+
+# How to use this project
+usage: |-
+  ### Simple Example
+
+  ```hcl
+  module "lambda" {
+    source        = "git::https://github.com/enter-at/terraform-aws-lambda.git?ref=master"
+    function_name = "test-service"
+    handler       = "service/handler"
+    source_dir    = var.source_dir
+    runtime       = var.runtime
+
+    rsync_pattern = [
+      "--include=*.js"
+    ]
+  }
+  ```
+  ### Advanced Example
+
+  ```hcl
+  locals {
+    service_dir = "account-data"
+  }
+
+  module "lambda" {
+    source        = "git::https://github.com/enter-at/terraform-aws-lambda.git?ref=master"
+    function_name = "test-service"
+    handler       = "${local.service_dir}/handler"
+    source_dir    = var.source_dir
+    runtime       = var.runtime
+    layers        = var.layers
+
+    rsync_pattern = [
+      "--include=lib/",
+      "--include=domain/",
+      "--include=${local.service_dir}/",
+      "--include=*.js"
+    ]
+
+    policy = {
+      json = data.aws_iam_policy_document.main.json
+    }
+
+    environment = {
+      variables = {
+        SM_SERVICE_CONFIG = var.pfs_secrets_manager_secret.arn
+      }
+    }
+
+    vpc_config = {
+      subnet_ids = var.private_subnet_ids
+
+      security_group_ids = [
+        var.security_group_id
+      ]
+    }
+
+    tags = {
+      "Team" = "XYZ"
+    }
+  }
+  ```
+
+include:
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "Steffen Leistner"
+    github: "sleistner"
