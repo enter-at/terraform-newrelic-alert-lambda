@@ -42,6 +42,9 @@ related:
   - name: "terraform-aws-lambda"
     description: "Terraform module designed to facilitate the creation of AWS Lambda functions."
     url: "https://github.com/enter-at/terraform-aws-lambda"
+  - name: "terraform-aws-lambda-layer"
+    description: "Terraform module designed to facilitate the creation of AWS Lambda layers."
+    url: "https://github.com/enter-at/terraform-aws-lambda-layer"
 
 # Short description of this project
 description: |-
