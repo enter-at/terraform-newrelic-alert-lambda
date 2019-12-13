@@ -5,10 +5,12 @@
 #
 
 # Name of this project
-name: terraform-aws-lambda
+name: terraform-newrelic-alert-lambda
 
 # Tags of this project
 tags:
+  - newrelic
+  - newrelic-alert
   - aws
   - aws-lambda
   - terraform
@@ -22,89 +24,40 @@ categories:
 license: "APACHE2"
 
 # Canonical GitHub repo
-github_repo: enter-at/terraform-aws-lambda
+github_repo: enter-at/terraform-newrelic-alert-lambda
 
 # Badges to display
 badges:
   - name: "Build Status"
-    image: "https://github.com/enter-at/terraform-aws-lambda/workflows/Lint/badge.svg"
-    url: "https://github.com/enter-at/terraform-aws-lambda/actions"
+    image: "https://github.com/enter-at/terraform-newrelic-alert-lambda/workflows/Lint/badge.svg"
+    url: "https://github.com/enter-at/terraform-newrelic-alert-lambda/actions"
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/enter-at/terraform-aws-lambda.svg"
-    url: "https://github.com/enter-at/terraform-aws-lambda/releases/latest"
+    image: "https://img.shields.io/github/release/enter-at/terraform-newrelic-alert-lambda.svg"
+    url: "https://github.com/enter-at/terraform-newrelic-alert-lambda/releases/latest"
   - name: "Semantic Release"
     image: "https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg"
     url: "https://github.com/semantic-release/semantic-release"
 
 related:
-  - name: "terraform-newrelic-alert-lambda"
-    description: "Terraform Module to define New Relic alerts for AWS Lambda functions."
-    url: "https://github.com/enter-at/terraform-newrelic-alert-lambda"
+  - name: "terraform-aws-lambda"
+    description: "Terraform module designed to facilitate the creation of AWS Lambda functions."
+    url: "https://github.com/enter-at/terraform-aws-lambda"
 
 # Short description of this project
 description: |-
-  Terraform module designed to facilitate the creation of AWS Lambda functions.
+  Terraform module designed to facilitate the creation of New Relic AWS Lambda alerts.
 
 # How to use this project
 usage: |-
   ### Simple Example
 
   ```hcl
-  module "lambda" {
-    source        = "git::https://github.com/enter-at/terraform-aws-lambda.git?ref=master"
-    function_name = "test-service"
-    handler       = "service/handler"
-    source_dir    = var.source_dir
-    runtime       = var.runtime
-
-    rsync_pattern = [
-      "--include=*.js"
-    ]
-  }
-  ```
-  ### Advanced Example
-
-  ```hcl
-  locals {
-    service_dir = "account-data"
-  }
-
-  module "lambda" {
-    source        = "git::https://github.com/enter-at/terraform-aws-lambda.git?ref=master"
-    function_name = "test-service"
-    handler       = "${local.service_dir}/handler"
-    source_dir    = var.source_dir
-    runtime       = var.runtime
-    layers        = var.layers
-
-    rsync_pattern = [
-      "--include=lib/",
-      "--include=domain/",
-      "--include=${local.service_dir}/",
-      "--include=*.js"
-    ]
-
-    policy = {
-      json = data.aws_iam_policy_document.main.json
-    }
-
-    environment = {
-      variables = {
-        SM_SERVICE_CONFIG = var.pfs_secrets_manager_secret.arn
-      }
-    }
-
-    vpc_config = {
-      subnet_ids = var.private_subnet_ids
-
-      security_group_ids = [
-        var.security_group_id
-      ]
-    }
-
-    tags = {
-      "Team" = "XYZ"
-    }
+  module "newrelic_alert" {
+    source           = "git::https://github.com/enter-at/terraform-newrelic-alert-lambda.git?ref=master"
+    function_name    = aws_lambda_function.main.function_name
+    function_arn     = aws_lambda_function.main.arn
+    function_timeout = aws_lambda_function.main.timeout
+    policy_id        = newrelic_alert_policy.main.id
   }
   ```
 

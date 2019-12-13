@@ -1,72 +1,61 @@
-data "aws_caller_identity" "current" {}
+resource "newrelic_nrql_alert_condition" "error_rate_min" {
+  name      = "Lambda error rate during ${var.error_duration_critical}min"
+  enabled   = var.enabled
+  policy_id = var.policy_id
 
-data "aws_partition" "current" {}
+  term {
+    duration      = var.error_duration_critical
+    operator      = "above"
+    priority      = "critical"
+    threshold     = var.error_threshold_critical
+    time_function = "any"
+  }
 
-data "aws_region" "current" {}
+  nrql {
+    query = <<NRQL
+        SELECT count(*)
+        FROM AwsLambdaInvocationError
+        WHERE aws.lambda.arn = '${var.function_arn}'
+    NRQL
 
-locals {
-  partition             = data.aws_partition.current.partition
-  account_id            = data.aws_caller_identity.current.account_id
-  lambda_log_group_name = "/aws/lambda/${var.function_name}"
-  lambda_log_group_arn  = "arn:${local.partition}:logs:*:${local.account_id}:log-group:${local.lambda_log_group_name}"
+    since_value = var.since_value
+  }
+
+  runbook_url    = var.runbook_url
+  value_function = "single_value"
 }
 
-resource "aws_cloudwatch_log_group" "main" {
-  name = local.lambda_log_group_name
-  tags = var.tags
-}
+resource "newrelic_nrql_alert_condition" "execution_time" {
+  name      = "Lambda execution timeout of ${var.function_timeout}sec almost exceeded"
+  enabled   = var.enabled
+  policy_id = var.policy_id
 
-resource "aws_lambda_function" "main" {
-  function_name                  = var.function_name
-  description                    = var.description
-  role                           = aws_iam_role.main.arn
-  handler                        = var.handler
-  memory_size                    = var.memory_size
-  reserved_concurrent_executions = var.reserved_concurrent_executions
-  runtime                        = var.runtime
-  layers                         = var.layers
-  timeout                        = var.timeout
-  tags                           = var.tags
-
-  filename         = data.archive_file.function.output_path
-  source_code_hash = data.archive_file.function.output_base64sha256
-
-  # Add dynamic blocks based on variables.
-
-  dynamic "dead_letter_config" {
-    for_each = var.dead_letter_config == null ? [] : [
-      var.dead_letter_config
-    ]
-    content {
-      target_arn = dead_letter_config.value.target_arn
-    }
+  term {
+    duration      = var.error_duration_critical
+    operator      = "above"
+    priority      = "critical"
+    threshold     = var.function_timeout * 0.95
+    time_function = "any"
   }
 
-  dynamic "environment" {
-    for_each = var.environment == null ? [] : [
-      var.environment
-    ]
-    content {
-      variables = environment.value.variables
-    }
+  term {
+    duration      = var.error_duration_critical
+    operator      = "above"
+    priority      = "warning"
+    threshold     = var.function_timeout * 0.8
+    time_function = "all"
   }
 
-  dynamic "tracing_config" {
-    for_each = var.tracing_config == null ? [] : [
-      var.tracing_config
-    ]
-    content {
-      mode = tracing_config.value.mode
-    }
+  nrql {
+    query = <<NRQL
+        SELECT max(duration)
+        FROM AwsLambdaInvocation
+        WHERE aws.lambda.arn = '${var.function_arn}'
+    NRQL
+
+    since_value = var.since_value
   }
 
-  dynamic "vpc_config" {
-    for_each = var.vpc_config == null ? [] : [
-      var.vpc_config
-    ]
-    content {
-      security_group_ids = vpc_config.value.security_group_ids
-      subnet_ids         = vpc_config.value.subnet_ids
-    }
-  }
+  runbook_url    = var.runbook_url
+  value_function = "single_value"
 }

@@ -4,18 +4,14 @@ terraform {
   backend "local" {}
 }
 
-provider "aws" {
-  region = "eu-central-1"
+provider "newrelic" {
+  api_key = "12345"
 }
 
-module "lambda" {
+module "alerts" {
   source        = "../"
   function_name = "test-service"
-  handler       = "service/handler"
-  source_dir    = "./"
-  runtime       = "nodejs10.x"
-
-  rsync_pattern = [
-    "--include=*.js"
-  ]
+  function_arn  = "arn:*:lambda:eu-central-1:*:function:test-service"
+  function_timeout = 0
+  policy_id = "1"
 }

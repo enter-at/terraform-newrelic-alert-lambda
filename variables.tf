@@ -1,112 +1,49 @@
-variable "rsync_pattern" {
-  type        = list(string)
-  description = "(Optional) A list of rsync pattern to include or exclude files and directories."
-
-  default = [
-    "--include=*"
-  ]
+variable "enabled" {
+  type        = bool
+  description = "(Optional) Set whether to enable the alert condition. Defaults to true."
+  default     = true
 }
 
-variable "source_dir" {
+variable "function_arn" {
   type        = string
-  description = "(Required) The location of the handler source code."
-}
-
-variable "description" {
-  type        = string
-  description = "(Optional) Description of what your Lambda Function does."
-  default     = null
-}
-
-variable "layers" {
-  type = list(string)
-
-  description = "(Optional) List of Lambda Layer Version ARNs (maximum of 5) to attach to your Lambda Function."
-  default     = null
-}
-
-variable "memory_size" {
-  type        = number
-  description = "(Optional) Amount of memory in MB your Lambda Function can use at runtime. Defaults to 128."
-  default     = 128
-}
-
-variable "timeout" {
-  type        = number
-  description = "(Optional) The amount of time your Lambda Function has to run in seconds. Defaults to 3."
-  default     = 3
+  description = "(Required) The Amazon Resource Name (ARN) identifying the Lambda function."
 }
 
 variable "function_name" {
   type        = string
-  description = "(Required) A unique name for your Lambda Function."
+  description = "(Required) The name identifying the Lambda function."
 }
 
-variable "handler" {
-  type        = string
-  description = "(Required) The function entrypoint in your code."
-}
-
-variable "reserved_concurrent_executions" {
+variable "function_timeout" {
   type        = number
-  description = "(Optional) The amount of reserved concurrent executions for this lambda function."
-  default     = null
+  description = "(Required) The amount of time the Lambda function can run in seconds."
 }
 
-variable "dead_letter_config" {
-  type = object({
-    target_arn = string
-  })
-
-  description = "(Optional) Nested block to configure the function's dead letter queue."
-  default     = null
-}
-
-variable "vpc_config" {
-  type = object({
-    security_group_ids = list(string)
-    subnet_ids         = list(string)
-  })
-
-  description = "(Optional) Provide this to allow your function to access your VPC."
-  default     = null
-}
-
-variable "environment" {
-  type = object({
-    variables = map(string)
-  })
-
-  description = "(Optional) The Lambda environment's configuration settings."
-  default     = null
-}
-
-variable "tracing_config" {
-  type = object({
-    mode = string
-  })
-
-  description = "(Optional) A child block with a single argument mode"
-  default     = null
-}
-
-variable "policy" {
-  type = object({
-    json = string
-  })
-
-  description = "(Optional) An additional policy to attach to the Lambda function role."
-  default     = null
-}
-
-variable "runtime" {
+variable "policy_id" {
   type        = string
-  description = "(Required) The identifier of the function's runtime."
+  description = "(Required) The ID of the policy where this condition should be used."
 }
 
-variable "tags" {
-  type = map(string)
-
-  description = "(Optional) A mapping of tags to assign to the object."
+variable "runbook_url" {
+  type        = string
+  description = "(Optional) Runbook URL to display in notifications."
   default     = null
+}
+
+variable "error_duration_critical" {
+  type        = number
+  description = "(Required) In minutes, must be in the range of 1 to 120, inclusive. Defaults to 3."
+  default     = 3
+}
+
+variable "error_threshold_critical" {
+  type        = number
+  description = "(Required) Must be 0 or greater. Defaults to 0."
+  default     = 0
+}
+
+variable "since_value" {
+  type        = number
+  description = "(Optional) The value to be used in the SINCE <X> MINUTES AGO clause for the NRQL query. Must be between 1 and 20. Defaults to 3."
+  default     = 3
 }
