@@ -29,7 +29,7 @@ github_repo: enter-at/terraform-newrelic-alert-lambda
 # Badges to display
 badges:
   - name: "Build Status"
-    image: "https://github.com/enter-at/terraform-newrelic-alert-lambda/workflows/Lint/badge.svg"
+    image: "https://github.com/enter-at/terraform-newrelic-alert-lambda/workflows/Terraform Lint/badge.svg"
     url: "https://github.com/enter-at/terraform-newrelic-alert-lambda/actions"
   - name: "Latest Release"
     image: "https://img.shields.io/github/release/enter-at/terraform-newrelic-alert-lambda.svg"
