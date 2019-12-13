@@ -12,7 +12,7 @@
 
 [<img src="https://res.cloudinary.com/enter-at/image/upload/v1576145406/static/logo-svg.svg" alt="enter-at" width="100">][website]
 
-# terraform-newrelic-alert-lambda [![Build Status](https://github.com/enter-at/terraform-newrelic-alert-lambda/workflows/Terraform Lint/badge.svg)](https://github.com/enter-at/terraform-newrelic-alert-lambda/actions) [![Latest Release](https://img.shields.io/github/release/enter-at/terraform-newrelic-alert-lambda.svg)](https://github.com/enter-at/terraform-newrelic-alert-lambda/releases/latest) [![Semantic Release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+# terraform-newrelic-alert-lambda [![Build Status](https://github.com/enter-at/terraform-newrelic-alert-lambda/workflows/Terraform%20Lint/badge.svg)](https://github.com/enter-at/terraform-newrelic-alert-lambda/actions) [![Latest Release](https://img.shields.io/github/release/enter-at/terraform-newrelic-alert-lambda.svg)](https://github.com/enter-at/terraform-newrelic-alert-lambda/releases/latest) [![Semantic Release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 
 Terraform module designed to facilitate the creation of New Relic AWS Lambda alerts.
@@ -77,7 +77,7 @@ module "newrelic_alert" {
 
 ## Share the Love
 
-Like this project? 
+Like this project?
 Please give it a ★ on [our GitHub](https://github.com/enter-at/terraform-newrelic-alert-lambda)!
 
 
@@ -86,6 +86,7 @@ Please give it a ★ on [our GitHub](https://github.com/enter-at/terraform-newre
 Check out these related projects.
 
 - [terraform-aws-lambda](https://github.com/enter-at/terraform-aws-lambda) - Terraform module designed to facilitate the creation of AWS Lambda functions.
+- [terraform-aws-lambda-layer](https://github.com/enter-at/terraform-aws-lambda-layer) - Terraform module designed to facilitate the creation of AWS Lambda layers.
 
 
 
@@ -147,11 +148,12 @@ See [LICENSE](LICENSE) for full details.
 
 ### Contributors
 
-|  [![Steffen Leistner][sleistner_avatar]][sleistner_homepage]<br/>[Steffen Leistner][sleistner_homepage] |
-|---|
+
+[![Steffen Leistner][sleistner_avatar]][sleistner_homepage]
+
 
   [sleistner_homepage]: https://github.com/sleistner
-  [sleistner_avatar]: https://res.cloudinary.com/enter-at/image/fetch/w_100,h_100,c_thumb/https://github.com/sleistner.png
+  [sleistner_avatar]: https://res.cloudinary.com/enter-at/image/fetch/f_png,r_max,w_100,h_100,c_thumb/https://github.com/sleistner.png
 
 
 
