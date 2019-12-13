@@ -9,9 +9,9 @@ provider "newrelic" {
 }
 
 module "alerts" {
-  source        = "../"
-  function_name = "test-service"
-  function_arn  = "arn:*:lambda:eu-central-1:*:function:test-service"
+  source           = "../"
+  function_name    = "test-service"
+  function_arn     = "arn:*:lambda:eu-central-1:*:function:test-service"
   function_timeout = 0
-  policy_id = "1"
+  policy_id        = "1"
 }
