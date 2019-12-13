@@ -1,3 +1,10 @@
+# 1.0.0 (2019-12-13)
+
+
+### Features
+
+* add alert conditions ([560a771](https://github.com/enter-at/terraform-newrelic-alert-lambda/commit/560a771bc96ddca41691da6cf7a5929777a9fc03))
+
 ## [1.0.2](https://github.com/enter-at/terraform-aws-lambda/compare/v1.0.1...v1.0.2) (2019-12-12)
 
 
