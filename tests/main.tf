@@ -1,10 +1,11 @@
 terraform {
-  required_version = ">= 0.12"
+  required_version = "~> 0.12"
 
   backend "local" {}
 }
 
 provider "newrelic" {
+  version = "~> 1.15"
   api_key = "12345"
 }
 
