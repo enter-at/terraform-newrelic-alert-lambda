@@ -20,7 +20,7 @@ jobs:
       - name: readme/update
         shell: bash
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_BOT_TOKEN }}"
+          GITHUB_TOKEN: "${{ secrets.GH_BOT_TOKEN }}"
         run: |
           make init
           make readme/deps

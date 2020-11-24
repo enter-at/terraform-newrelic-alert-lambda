@@ -24,7 +24,7 @@ jobs:
           tf_actions_working_dir: "."
           tf_actions_comment: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
 
       - name: Run Terraform init
         uses: hashicorp/terraform-github-actions@master
@@ -34,7 +34,7 @@ jobs:
           tf_actions_working_dir: "./tests"
           tf_actions_comment: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
 
       - name: Run Terraform validate
         uses: hashicorp/terraform-github-actions@master
@@ -44,7 +44,7 @@ jobs:
           tf_actions_working_dir: "./tests"
           tf_actions_comment: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
 
   shellcheck:
     name: Check Shellscripts
@@ -56,6 +56,6 @@ jobs:
       - name: Run Shellcheck
         uses: reviewdog/action-shellcheck@v1
         with:
-          github_token: ${{ secrets.GITHUB_BOT_TOKEN }}
+          github_token: ${{ secrets.GH_BOT_TOKEN }}
           reporter: github-pr-review
 
