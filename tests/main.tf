@@ -5,7 +5,7 @@ terraform {
 }
 
 provider "newrelic" {
-  version = "~> 1.15"
+  version = "~> 2.0.0"
   api_key = "12345"
 }
 
