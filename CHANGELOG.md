@@ -1,3 +1,23 @@
+# [2.0.0](https://github.com/enter-at/terraform-newrelic-alert-lambda/compare/v1.0.0...v2.0.0) (2020-11-24)
+
+
+### Bug Fixes
+
+* **ci:** workflow ([e6ddee1](https://github.com/enter-at/terraform-newrelic-alert-lambda/commit/e6ddee1f52de2639f44b637e5b04a8f809cc86a4))
+
+
+### Features
+
+* **alert_condition:** add error_rate_percentage ([ee5e031](https://github.com/enter-at/terraform-newrelic-alert-lambda/commit/ee5e0317083942c234b6509d8c43c33f9571ae8b))
+
+
+### BREAKING CHANGES
+
+* **alert_condition:** update to new relic provider 2.0
+
+renamed variables:
+since_value => evaluation_offset
+
 # 1.0.0 (2019-12-13)
 
 
