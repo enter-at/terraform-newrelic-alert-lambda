@@ -5,8 +5,9 @@ terraform {
 }
 
 provider "newrelic" {
-  version = "~> 1.15"
-  api_key = "12345"
+  version    = "~> 2.0.0"
+  api_key    = "12345"
+  account_id = "12345"
 }
 
 module "alerts" {

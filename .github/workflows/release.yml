@@ -1,9 +1,13 @@
 name: Release
 
 on:
-  push:
+  workflow_run:
+    workflows:
+      - "Code checks and tests"
     branches:
       - master
+    types:
+      - completed
 
 jobs:
   release:

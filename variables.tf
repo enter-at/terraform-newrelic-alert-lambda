@@ -42,8 +42,8 @@ variable "error_threshold_critical" {
   default     = 0
 }
 
-variable "since_value" {
+variable "evaluation_offset" {
   type        = number
-  description = "(Optional) The value to be used in the SINCE <X> MINUTES AGO clause for the NRQL query. Must be between 1 and 20. Defaults to 3."
+  description = "(Optional*) Represented in minutes and must be within 1-20 minutes (inclusive). NRQL queries are evaluated in one-minute time windows. Defaults to 3."
   default     = 3
 }
